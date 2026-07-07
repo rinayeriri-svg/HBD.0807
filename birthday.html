@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday 💜</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        /* Consistent Indigo Gradient Background */
+        body {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #4338ca 100%);
+            color: #ffffff;
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .page {
+            width: 90%;
+            max-width: 600px;
+            text-align: center;
+            z-index: 10;
+            animation: fadeIn 1.2s ease-out;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            margin: 0 0 0.8rem 0;
+            text-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: #c7d2fe;
+            line-height: 1.6;
+            font-weight: 300;
+            margin-bottom: 2.5rem;
+        }
+
+        /* Premium Glow Buttons */
+        .btn {
+            display: inline-block;
+            padding: 14px 36px;
+            background: #6366f1;
+            color: #ffffff;
+            text-decoration: none;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background: #4f46e5;
+            transform: scale(1.03);
+            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.6);
+        }
+
+        /* Hidden Final Message Card */
+        #finalMessage {
+            display: none; /* Keeps it hidden until clicked */
+            opacity: 0;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 3rem 2rem;
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+            margin-top: 1rem;
+            transition: opacity 0.8s ease;
+        }
+
+        #finalMessage h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            margin-top: 0;
+            margin-bottom: 1.5rem;
+            color: #ffffff;
+        }
+
+        #finalMessage p {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: #e0e7ff;
+            font-weight: 300;
+            margin-bottom: 2.5rem;
+            white-space: pre-line; /* Respects your line breaks */
+        }
+
+        /* Start Again Button spacing tweaks */
+        #finalMessage .btn {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: none;
+        }
+        #finalMessage .btn:hover {
+            background: rgba(255, 255, 255, 0.15);
+            color: #ffffff;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+<section class="page">
+
+    <h1 id="mainHeading">Happy Birthday 💜</h1>
+
+    <p class="subtitle" id="mainSubtitle">
+        You finally made it to the end...<br>
+        but this is only the beginning of another amazing year.
+    </p>
+
+    <!-- Trigger Button -->
+    <button class="btn" id="surpriseBtn" onclick="celebrate()">
+        🎁 Click For Your Surprise
+    </button>
+
+    <!-- Hidden Letter Card -->
+    <div id="finalMessage">
+        <h2>🎉 Happy Birthday, Bestie! 🎉</h2>
+        
+        <p>Thank you for being one of the best parts of my life.
+        You've filled my days with laughter,
+        my hardest moments with comfort,
+        and my life with unforgettable memories.
+        
+        I hope this year brings you every happiness you deserve.
+        Never stop being the amazing person you are.
+        I love you so much.
+        
+        Happy Birthday. 💜</p>
+
+        <a href="../index.html" class="btn">Start Again</a>
+    </div>
+
+</section>
+
+<!-- Confetti Engine Script Links -->
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+<script>
+function celebrate() {
+    // 1. Pop the festive explosion particles across the view
+    confetti({
+        particleCount: 150,
+        spread: 80,
+        origin: { y: 0.6 },
+        colors: ['#818cf8', '#6366f1', '#4f46e5', '#a78bfa', '#ffffff']
+    });
+
+    // Optional continuous side bursts for extra flair
+    setTimeout(() => {
+        confetti({ particleCount: 50, angle: 60, spread: 55, origin: { x: 0 } });
+        confetti({ particleCount: 50, angle: 120, spread: 55, origin: { x: 1 } });
+    }, 250);
+
+    // 2. Hide old layout headers & button smoothly
+    document.getElementById("surpriseBtn").style.display = "none";
+    document.getElementById("mainHeading").style.display = "none";
+    document.getElementById("mainSubtitle").style.display = "none";
+
+    // 3. Reveal the beautifully hidden birthday message card box container
+    const messageCard = document.getElementById("finalMessage");
+    messageCard.style.display = "block";
+    setTimeout(() => {
+        messageCard.style.opacity = "1";
+    }, 50);
+}
+</script>
+
+</body>
+</html>

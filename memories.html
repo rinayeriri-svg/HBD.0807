@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Scrapbook 💜</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Consistent Indigo Gradient Background */
+        body {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #4338ca 100%);
+            color: #ffffff;
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding: 2rem 0;
+            overflow-x: hidden;
+        }
+
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3.2rem;
+            margin: 0 0 0.5rem 0;
+            text-align: center;
+            text-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+        }
+
+        .subtitle {
+            font-size: 1rem;
+            color: #c7d2fe;
+            text-align: center;
+            margin: 0 0 2rem 0;
+            font-weight: 300;
+        }
+
+        /* Scrapbook Outer Frame Wrapper */
+        .scrapbook-wrapper {
+            position: relative;
+            width: 95%;
+            max-width: 650px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Scrapbook Book Container */
+        .scrapbook-container {
+            position: relative;
+            width: 100%;
+            max-width: 520px;
+            height: 480px;
+            perspective: 1500px; /* 3D depth effect */
+            margin: 0 1rem;
+        }
+
+        /* Individual Scrapbook Page Card */
+        .scrapbook-page {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: rgba(255, 255, 255, 0.07);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            border-radius: 24px;
+            padding: 1.5rem;
+            box-sizing: border-box;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            
+            /* 3D Transform settings */
+            transform-origin: left center;
+            transform-style: preserve-3d;
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.8s ease, visibility 0.8s;
+            
+            opacity: 0;
+            visibility: hidden;
+            transform: rotateY(90deg); 
+            z-index: 1;
+        }
+
+        /* Current Page State */
+        .scrapbook-page.active {
+            opacity: 1;
+            visibility: visible;
+            transform: rotateY(0deg);
+            z-index: 5;
+        }
+
+        /* Flipped/Passed Page State */
+        .scrapbook-page.flipped {
+            opacity: 0;
+            visibility: hidden;
+            transform: rotateY(-120deg);
+            z-index: 1;
+        }
+
+        /* Media Frame Layout (Polaroid Style) */
+        .media-frame {
+            width: 100%;
+            height: 72%;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: inset 0 0 15px rgba(0,0,0,0.4);
+            margin-bottom: 1.2rem;
+        }
+
+        .media-frame img, 
+        .media-frame video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Scrapbook Expressions / Captions */
+        .caption {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.8rem;
+            color: #fbbf24; /* Warm Gold */
+            margin: 0;
+            text-align: center;
+            letter-spacing: 0.5px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        /* Floating Side Navigation Arrows */
+        .side-arrow {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #ffffff;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 100;
+            user-select: none;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+        }
+
+        .side-arrow:hover:not(.disabled) {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.1);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        .side-arrow.disabled {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        /* Bottom Book Controls Layout */
+        .controls-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1.5rem;
+            width: 100%;
+            margin-top: 1.5rem;
+        }
+
+        .nav-btn {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 500;
+            padding: 10px 24px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            user-select: none;
+        }
+
+        .nav-btn:hover:not(:disabled) {
+            background: rgba(255, 255, 255, 0.18);
+            transform: translateY(-1px);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .page-counter {
+            font-size: 0.9rem;
+            color: #a5b4fc;
+            letter-spacing: 1px;
+            font-weight: 500;
+        }
+
+        /* Final Next Page Action Link Button */
+        .finish-btn {
+            display: none;
+            padding: 12px 32px;
+            background: #6366f1;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            animation: fadeIn 0.5s ease;
+        }
+
+        .finish-btn:hover {
+            background: #4f46e5;
+            transform: scale(1.02);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Our Scrapbook 📸</h1>
+    <p class="subtitle">Flip through to see our beautiful memories together... 💜</p>
+
+    <!-- Outer Wrapper containing Book + Side Arrows -->
+    <div class="scrapbook-wrapper">
+        
+        <!-- Left Floating Arrow -->
+        <button class="side-arrow disabled" id="sidePrevBtn" onclick="changePage(-1)">&#10094;</button>
+
+        <!-- Scrapbook Book Base Container -->
+        <div class="scrapbook-container" id="bookContainer">
+            
+            <!-- Page 1: Image 1 -->
+            <div class="scrapbook-page active">
+                <div class="media-frame">
+                    <img src="../images/1.jpeg" alt="Memory 1">
+                </div>
+                <p class="caption">One of my favorite days 💜</p>
+            </div>
+
+            <!-- Page 2: Video 7 -->
+            <div class="scrapbook-page">
+                <div class="media-frame">
+                    <video src="../videos/7.mp4" controls></video>
+                </div>
+                <p class="caption">One of my favorite memories 💜</p>
+            </div>
+
+            <!-- Page 3: Image 3 -->
+            <div class="scrapbook-page">
+                <div class="media-frame">
+                    <img src="../images/3.jpeg" alt="Memory 2">
+                </div>
+                <p class="caption">Always making things brighter ✨</p>
+            </div>
+
+            
+
+            <!-- Page 5: Image 5 -->
+            <div class="scrapbook-page">
+                <div class="media-frame">
+                    <img src="../images/5.jpeg" alt="Memory 3">
+                </div>
+                <p class="caption">Partners in crime ✨</p>
+            </div>
+
+            <!-- Page 6: Video 4 -->
+            <div class="scrapbook-page">
+                <div class="media-frame">
+                    <video src="../videos/4.mp4" controls></video>
+                </div>
+                <p class="caption">Unforgettable moments 💫</p>
+            </div>
+
+           
+
+            <!-- Page 8: Video 1 -->
+            <div class="scrapbook-page">
+                <div class="media-frame">
+                    <video src="../videos/1.mp4" controls></video>
+                </div>
+                <p class="caption">Pure happiness 🍿</p>
+            </div>
+
+            <!-- Page 9: Image 2 -->
+            <div class="scrapbook-page">
+                <div class="media-frame">
+                    <img src="../images/2.jpeg" alt="Memory 5">
+                </div>
+                <p class="caption">Good times & laughs  🌸</p>
+            </div>
+
+            <!-- Page 10: Video 3 -->
+            <div class="scrapbook-page">
+                <div class="media-frame">
+                    <video src="../videos/3.mp4" controls></video>
+                </div>
+                <p class="caption">Living our best life 🎵</p>
+            </div>
+
+            
+
+            <!-- Page 12: Video 6 -->
+            <div class="scrapbook-page">
+                <div class="media-frame">
+                    <video src="../videos/6.mp4" controls></video>
+                </div>
+                <p class="caption">Forever thankful for you 🤗</p>
+            </div>
+<!-- Page 11: Image 4 repeated -->
+            <div class="scrapbook-page">
+                <div class="media-frame">
+                    <img src="../images/4.jpeg" alt="Memory 6">
+                </div>
+                <p class="caption">Besties forever 💜</p>
+            </div>
+        </div>
+
+        <!-- Right Floating Arrow -->
+        <button class="side-arrow" id="sideNextBtn" onclick="changePage(1)">&#10095;</button>
+
+    </div>
+
+    <!-- Bottom Scrapbook Controls Row -->
+    <div class="controls-wrapper">
+        <button class="nav-btn" id="prevBtn" onclick="changePage(-1)" disabled>&larr; Prev</button>
+        <span class="page-counter" id="pageCounter">Page 1 / 12</span>
+        <button class="nav-btn" id="nextBtn" onclick="changePage(1)">Next &rarr;</button>
+        <a href="award.html" class="finish-btn" id="finishBtn">Next Page ➜</a>
+    </div>
+
+    <script>
+        let currentPageIndex = 0;
+        const pages = document.querySelectorAll('.scrapbook-page');
+        const totalPages = pages.length;
+        
+        // Bottom controls
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const finishBtn = document.getElementById('finishBtn');
+        const pageCounter = document.getElementById('pageCounter');
+
+        // Floating side arrows
+        const sidePrevBtn = document.getElementById('sidePrevBtn');
+        const sideNextBtn = document.getElementById('sideNextBtn');
+
+        function changePage(direction) {
+            // Pause any video playing on the current page before turning it
+            const currentVideo = pages[currentPageIndex].querySelector('video');
+            if(currentVideo) { currentVideo.pause(); }
+
+            // Set classes for old current page
+            if (direction === 1) {
+                pages[currentPageIndex].classList.remove('active');
+                pages[currentPageIndex].classList.add('flipped');
+            } else if (direction === -1) {
+                pages[currentPageIndex].classList.remove('active');
+            }
+
+            // Adjust index
+            currentPageIndex += direction;
+
+            // Set classes for new current page
+            if (direction === -1) {
+                pages[currentPageIndex].classList.remove('flipped');
+            }
+            pages[currentPageIndex].classList.add('active');
+
+            // Update user control layout interfaces
+            pageCounter.innerText = `Page ${currentPageIndex + 1} / ${totalPages}`;
+            
+            // Sync bottom buttons and side arrows states
+            if (currentPageIndex === 0) {
+                prevBtn.disabled = true;
+                sidePrevBtn.classList.add('disabled');
+            } else {
+                prevBtn.disabled = false;
+                sidePrevBtn.classList.remove('disabled');
+            }
+            
+            if (currentPageIndex === totalPages - 1) {
+                nextBtn.style.display = "none";
+                sideNextBtn.classList.add('disabled');
+                finishBtn.style.display = "inline-block";
+            } else {
+                nextBtn.style.display = "inline-block";
+                sideNextBtn.classList.remove('disabled');
+                finishBtn.style.display = "none";
+            }
+        }
+    </script>
+
+</body>
+</html>

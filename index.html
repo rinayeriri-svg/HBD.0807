@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Surprise For You... 🎁</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        /* Deep Indigo Gradient Background matching your styling */
+        body {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background: linear-gradient(135deg, #1e1b4b 0%, #2e2a72 50%, #1e1b4b 100%);
+            color: #ffffff;
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Beautiful Frosted Glass Card Container */
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 32px;
+            width: 90%;
+            max-width: 500px;
+            padding: 3rem 2rem;
+            text-align: center;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+            transition: all 0.5s ease;
+        }
+
+        /* Top Emoji Row styling */
+        .emojis {
+            font-size: 1.4rem;
+            letter-spacing: 6px;
+            margin-bottom: 2rem;
+        }
+
+        /* Interactive Gift Box */
+        .gift-box {
+            font-size: 4rem;
+            cursor: pointer;
+            display: inline-block;
+            transition: transform 0.3s ease;
+            margin-bottom: 1.5rem;
+            user-select: none;
+        }
+
+        /* Fun wiggle animation to hint that she should click it */
+        .gift-box:hover {
+            transform: scale(1.15) rotate(5deg);
+        }
+
+        .teaser-text {
+            font-size: 1.05rem;
+            color: #cbd5e1;
+            font-weight: 300;
+            margin: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        /* ========================================================
+           CRUCIAL FIX: Hide the main birthday content by default 
+           ======================================================== */
+        .secret-content {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.6s ease-in-out;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            line-height: 1.3;
+            margin: 1.5rem 0;
+            text-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .message {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: #cbd5e1;
+            max-width: 400px;
+            margin: 0 auto 2.5rem auto;
+            font-weight: 300;
+        }
+
+        /* Custom link style matching your purple undertone link look */
+        .btn-link {
+            display: inline-block;
+            color: #c084fc;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            margin-bottom: 0.8rem;
+            transition: color 0.3s ease;
+        }
+
+        .btn-link:hover {
+            color: #e9d5ff;
+        }
+
+        .footer-note {
+            font-size: 0.85rem;
+            color: #94a3b8;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <!-- Emojis header -->
+        <div class="emojis">💜 💙 ✨ 💜 💙 ✨</div>
+
+        <!-- The Gift Trigger -->
+        <div class="gift-box" id="giftButton" onclick="revealSurprise()">🎁</div>
+
+        <!-- Initial Teaser Text -->
+        <p class="teaser-text" id="teaser">A little surprise is waiting for you...</p>
+
+        <!-- Hidden Birthday Message Block -->
+        <div class="secret-content" id="birthdayMessage">
+            <h1>Happy Birthday,<br>Bestie 💜</h1>
+            
+            <p class="message">
+                Every photo, every memory, and every word on this website 
+                was made with love just for you.
+            </p>
+
+            <a href="pages/reasons.html" class="btn-link">✨ Enter the Surprise ✨</a>
+            <p class="footer-note">Made especially for my favorite person 💜</p>
+        </div>
+    </div>
+
+    <script>
+        function revealSurprise() {
+            // 1. Hide the teaser text string
+            document.getElementById("teaser").style.display = "none";
+            
+            // 2. Change the gift box design slightly or hide it if you prefer (let's scale it slightly as it unlocks)
+            const gift = document.getElementById("giftButton");
+            gift.innerHTML = "🎉"; // Changes package into an explosion emoji!
+            gift.style.transform = "scale(1.2)";
+            gift.style.cursor = "default";
+            gift.onclick = null; // Disables further clicks
+
+            // 3. Make the hidden block appear layout-wise
+            const hiddenBlock = document.getElementById("birthdayMessage");
+            hiddenBlock.style.display = "block";
+            
+            // 4. Smoothly fade the content transparency in
+            setTimeout(() => {
+                hiddenBlock.style.opacity = "1";
+            }, 50);
+        }
+    </script>
+
+</body>
+</html>

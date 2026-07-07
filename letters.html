@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Open When... 💌</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        /* Consistent Indigo Gradient Background */
+        body {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #4338ca 100%);
+            color: #ffffff;
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 3rem 0;
+        }
+
+        .page {
+            width: 90%;
+            max-width: 650px;
+            text-align: center;
+            animation: fadeIn 1s ease-out;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            margin: 0 0 0.8rem 0;
+            text-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+        }
+
+        .subtitle {
+            font-size: 1.05rem;
+            color: #c7d2fe;
+            line-height: 1.6;
+            font-weight: 300;
+            margin-bottom: 3rem;
+        }
+
+        /* Letters Layout Wrapper */
+        .letters {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        /* Hidden Letter Card (Closed State) */
+        .letter {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 1.5rem;
+            text-align: left;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .letter:hover {
+            background: rgba(255, 255, 255, 0.09);
+            transform: translateY(-2px);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .letter h2 {
+            margin: 0;
+            font-size: 1.15rem;
+            font-weight: 500;
+            color: #ffffff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Subtle dropdown arrow cue */
+        .letter h2::after {
+            content: '▾';
+            font-size: 1.2rem;
+            color: #a5b4fc;
+            transition: transform 0.3s ease;
+        }
+
+        /* CRUCIAL FIX: Hide message by default */
+        .letter p {
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            margin: 0;
+            padding-top: 0;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #e0e7ff;
+            font-weight: 300;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Revealing Animation (Open State) */
+        .letter.open {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(165, 180, 252, 0.4);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.35);
+        }
+
+        .letter.open h2::after {
+            transform: rotate(-180deg);
+            color: #ffffff;
+        }
+
+        .letter.open p {
+            max-height: 200px; /* Expands smoothly */
+            opacity: 1;
+            padding-top: 1.2rem;
+        }
+
+        /* Beautiful Bottom Button */
+        .btn {
+            display: inline-block;
+            padding: 14px 36px;
+            background: #6366f1;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .btn:hover {
+            background: #4f46e5;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.6);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+<section class="page">
+
+    <h1>Open When... 💌</h1>
+
+    <p class="subtitle">
+        These little letters are for different moments. Open whichever one your heart chooses. 💜
+    </p>
+
+    <div class="letters">
+
+        <!-- Letter 1 -->
+        <div class="letter" onclick="toggleLetter(this)">
+            <h2>💌 Open when you're sad</h2>
+            <p>
+                I hope this reminds you that you are never alone.
+                You are stronger than you know, kinder than you realize,
+                and loved more than words can ever explain.
+                I'm always here for you. 💜
+            </p>
+        </div>
+
+        <!-- Letter 2 -->
+        <div class="letter" onclick="toggleLetter(this)">
+            <h2>💌 Open when you miss me</h2>
+            <p>
+                Distance could never change our friendship.
+                Just think about all our memories and remember
+                that there are so many more waiting for us.
+            </p>
+        </div>
+
+        <!-- Letter 3 -->
+        <div class="letter" onclick="toggleLetter(this)">
+            <h2>💌 Open when you need to smile</h2>
+            <p>
+                Remember that one time we couldn't stop laughing?
+                Yeah... that's still one of my favorite memories.
+                I hope today gives you a reason to laugh just as much.
+            </p>
+        </div>
+
+        <!-- Letter 4 -->
+        <div class="letter" onclick="toggleLetter(this)">
+            <h2>💌 Open when you're doubting yourself</h2>
+            <p>
+                You are capable, intelligent, beautiful,
+                and incredibly strong.
+                Never let one bad day convince you otherwise.
+            </p>
+        </div>
+
+        <!-- Letter 5 -->
+        <div class="letter" onclick="toggleLetter(this)">
+            <h2>💌 Open when life gets hard</h2>
+            <p>
+                Take one step at a time.
+                You've already overcome so much.
+                I believe in you more than you'll ever know.
+            </p>
+        </div>
+
+        <!-- Letter 6 -->
+        <div class="letter" onclick="toggleLetter(this)">
+            <h2>💌 Open anytime</h2>
+            <p>
+                No matter what happens,
+                I'll always be grateful that life gave me a best friend like you.
+                Happy Birthday, my favorite person. 💜
+            </p>
+        </div>
+
+    </div>
+
+    <!-- Navigation Link Button -->
+    <a href="birthday.html" class="btn">
+        One Last Surprise ✨
+    </a>
+
+</section>
+
+<!-- JavaScript Function to handle click toggling -->
+<script>
+function toggleLetter(card) {
+    card.classList.toggle("open");
+}
+</script>
+
+</body>
+</html>

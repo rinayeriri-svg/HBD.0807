@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Best Friend Award 🏆</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Cinzel:wght@600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        /* Consistent Indigo Gradient Background */
+        body {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #4338ca 100%);
+            color: #ffffff;
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem 0;
+        }
+
+        .page {
+            text-align: center;
+            width: 90%;
+            max-width: 650px;
+            animation: fadeIn 1.2s ease-out;
+        }
+
+        h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 2.2rem;
+            margin-bottom: 2rem;
+            letter-spacing: 1px;
+            text-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Elegant Certificate Style Frame */
+        .certificate {
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 3.5rem 2rem;
+            border-radius: 20px;
+            /* Double gold border effect */
+            border: 2px solid #fbbf24; 
+            outline: 6px double rgba(251, 191, 36, 0.4);
+            outline-offset: -14px;
+            box-shadow: 0 25px 55px rgba(0, 0, 0, 0.4);
+            margin-bottom: 2.5rem;
+            position: relative;
+        }
+
+        h2 {
+            font-family: 'Cinzel', serif;
+            font-size: 1.8rem;
+            color: #fbbf24;
+            margin-top: 0;
+            margin-bottom: 1.5rem;
+            letter-spacing: 2px;
+        }
+
+        .presented {
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: #c7d2fe;
+            margin-bottom: 1rem;
+        }
+
+        /* Khanyi's Elegant Display Name */
+        h3 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3.2rem;
+            color: #ffffff;
+            margin: 0 0 1.5rem 0;
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+        }
+
+        .award-text {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: #e0e7ff;
+            max-width: 480px;
+            margin: 0 auto 1.2rem auto;
+            font-weight: 300;
+        }
+
+        /* Gold Stamp / Seal */
+        .seal {
+            font-family: 'Cinzel', serif;
+            font-size: 0.85rem;
+            font-weight: bold;
+            color: #fbbf24;
+            border: 1px dashed rgba(251, 191, 36, 0.6);
+            display: inline-block;
+            padding: 8px 20px;
+            border-radius: 4px;
+            margin: 1.5rem 0;
+            letter-spacing: 2px;
+            background: rgba(251, 191, 36, 0.05);
+        }
+
+        .signature {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.6rem;
+            color: #c7d2fe;
+            margin-top: 1rem;
+            margin-bottom: 0;
+            line-height: 1.3;
+        }
+
+        /* Beautifulized Accept Button */
+        .btn {
+            display: inline-block;
+            padding: 14px 36px;
+            background: #6366f1;
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background: #4f46e5;
+            transform: scale(1.03);
+            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.6);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+<section class="page">
+
+    <h1>🏆 The Best Friend Award 🏆</h1>
+
+    <div class="certificate">
+
+        <h2>Certificate of Appreciation</h2>
+
+        <p class="presented">Proudly Presented To</p>
+
+        <h3>✨ KHANYI ✨</h3>
+
+        <p class="award-text">
+            For being the most caring, funniest, strongest,
+            and most amazing best friend anyone could ever ask for.
+        </p>
+
+        <p class="award-text">
+            Thank you for every laugh, every hug, every late-night
+            conversation, and every unforgettable memory.
+        </p>
+
+        <div class="seal">
+            ⭐ Best Friend Forever ⭐
+        </div>
+
+        <p class="signature">
+            With love,<br>
+            Rinaye 💜
+        </p>
+
+    </div>
+
+    <button id="acceptAward" class="btn">
+        💜 Accept This Award 💜
+    </button>
+
+</section>
+
+<script>
+document.getElementById("acceptAward").addEventListener("click", function(){
+    window.location.href = "letters.html";
+});
+</script>
+
+</body>
+</html>
